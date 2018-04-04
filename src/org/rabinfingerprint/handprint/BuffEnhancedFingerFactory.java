@@ -82,14 +82,17 @@ public class BuffEnhancedFingerFactory {
 				window.setStart(chunkEnd);
 				window.reset();
 			} else if (chunkLength > MIN_CHUNK_SIZE && boundaryDetector.isBoundary(window)) {
+				
 				byte[] c = new byte[chunkLength];
-				k.get(c, chunkStart, chunkLength);
+				k.position(chunkStart);
+				k.get(c);
 				visitor.visit(0, chunkStart, chunkEnd, c);
 				chunkStart = chunkEnd;
 				chunkLength = 0;
 			} else if (chunkLength >= MAX_CHUNK_SIZE) {
 				byte[] c = new byte[chunkLength];
-				k.get(c, chunkStart, chunkLength);
+				k.position(chunkStart);
+				k.get(c);
 				visitor.visit(0, chunkStart, chunkEnd, c);
 				// store last chunk offset
 				chunkStart = chunkEnd;
@@ -102,7 +105,8 @@ public class BuffEnhancedFingerFactory {
 		}
 		if (chunkLength > 0) {
 			byte[] c = new byte[chunkLength];
-			k.get(c, chunkStart, chunkLength);
+			k.position(chunkStart);
+			k.get(c);
 			visitor.visit(0, chunkStart, chunkEnd, c);
 		}
 	}
