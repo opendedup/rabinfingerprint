@@ -131,7 +131,7 @@ public class Interval implements Comparable<Interval> {
 	 * Tests whether this is an empty (a.k.a. zero-length) interval
 	 */
 	public boolean isEmpty() {
-		return start == end;
+		return start.equals(end);
 	}
 
 	/**
